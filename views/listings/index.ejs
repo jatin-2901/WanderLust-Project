@@ -1,0 +1,184 @@
+<% layout("/layouts/boilerplate") -%>
+
+<style>
+  .filter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+
+  .icon {
+    text-align: center;
+    /* margin-right: 30px; */
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out;
+    opacity: 0.8;
+  }
+
+  .icon:hover {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+
+  .icon p {
+    margin-top: 6px;
+    font-size: 14px;
+  }
+
+  .toggle {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 2rem;
+    height: 50px;
+    width: 250px;
+  }
+
+  .form-check-input {
+    border: 1px solid black;
+    border-radius: 2rem;
+    cursor: pointer;
+  }
+
+  .toggle:hover {
+    background-color: black;
+    color: whitesmoke;
+  }
+</style>
+
+
+<div class="filter mb-3 mt-3">
+
+  <a href="/listings/filter/trending" class="icon-anchor-tag">
+    <div class="icon">
+      <div><i class="fa-solid fa-fire"></i></div>
+      <p>Trending</p>
+    </div>
+  </a>
+
+  <a href="/listings/filter/room" class="icon-anchor-tag">
+    <div class="icon">
+      <div><i class="fa-notdog-duo fa-solid fa-bed"></i></div>
+      <p>room</p>
+    </div>
+  </a>
+
+  <a href="/listings/filter/photography" class="icon-anchor-tag">
+    <div class="icon">
+      <div><i class="fa-solid fa-camera"></i></div>
+      <p>Photography</p>
+    </div>
+  </a>
+
+  <a href="/listings/filter/beach" class="icon-anchor-tag">
+    <div class="icon">
+      <div><i class="fa-solid fa-umbrella-beach"></i></div>
+      <p>Beach</p>
+    </div>
+  </a>
+
+  <a href="/listings/filter/cabins" class="icon-anchor-tag">
+    <div class="icon">
+      <div><i class="fa-solid fa-house-flag"></i></div>
+      <p>Cabins</p>
+    </div>
+  </a>
+
+  <a href="/listings/filter/farms" class="icon-anchor-tag">
+    <div class="icon">
+      <div><i class="fa-solid fa-tractor"></i></div>
+      <p>Farms</p>
+    </div>
+  </a>
+
+  <a href="/listings/filter/foregin" class="icon-anchor-tag">
+    <div class="icon">
+      <div><i class="fa-solid fa-plane"></i></div>
+      <p>Foreign</p>
+    </div>
+  </a>
+
+  <a href="/listings/filter/castles" class="icon-anchor-tag">
+    <div class="icon">
+      <div><i class="fa-brands fa-fort-awesome"></i></div>
+      <p>Castles</p>
+    </div>
+  </a>
+
+  <a href="/listings/filter/arctic" class="icon-anchor-tag">
+    <div class="icon">
+      <div><i class="fa-solid fa-snowflake"></i></div>
+      <p>Arctic</p>
+    </div>
+  </a>
+
+  <a href="/listings/filter/domes" class="icon-anchor-tag">
+    <div class="icon">
+      <div><i class="fa-solid fa-igloo"></i></div>
+      <p>Domes</p>
+    </div>
+  </a>
+
+  <a href="/listings/filter/yacht" class="icon-anchor-tag">
+    <div class="icon">
+      <div><i class="fa-solid fa-ship"></i></div>
+      <p>yacht</p>
+    </div>
+  </a>
+
+  <a href="/listings/filter/monuments" class="icon-anchor-tag">
+    <div class="icon">
+      <div><i class="fa-solid fa-gopuram"></i></div>
+      <p>Monuments</p>
+    </div>
+  </a>
+
+  <div class="toggle">
+    <div class="form-check-reverse form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
+      <label class="form-check-label" for="switchCheckDefault">Display Total After Taxes</label>
+    </div>
+  </div>
+
+</div>
+
+
+
+<div class="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2">
+  <% for(let listings of allListings) { %>
+
+  <a href="/listings/<%= listings._id %>" class="listing-link">
+    <div class="card col listing-card">
+      <img src="<%= listings.image.url %>" class="card-img-top" alt="listing_image">
+      <div class="card-img-overlay"></div>
+      <div class="card-body">
+        <h5 class="card-title"><%= listings.title %></h5>
+        <p class="card-text">
+
+          &#8377;<%= listings.price.toLocaleString("en-IN")%> night  <b class="tax-info">+18% GST </b>
+        </p>
+      </div>
+    </div>
+  </a>
+
+  <% } %>
+</div>
+
+<script>
+  let checkBox = document.getElementById("switchCheckDefault")
+  checkBox.addEventListener("click", () => {
+    let taxInfo = document.getElementsByClassName("tax-info");
+    for (tax of taxInfo) {
+      if (tax.style.display == "inline") {
+        tax.style.display = "none";
+      } else {
+        tax.style.display = "inline";
+      }
+
+    }
+
+  })
+</script>

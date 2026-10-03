@@ -1,0 +1,305 @@
+<% layout("/layouts/boilerplate") -%>
+
+<style>
+  :root {
+    --primary-brand: #ff385c;
+    --primary-dark: #d70466;
+    --text-primary: #222222;
+    --text-secondary: #717171;
+    --surface-bg: #ffffff;
+    --page-bg: #f7f7f7;
+    --border-subtle: #ebebeb;
+    --border-medium: #dddddd;
+    --badge-bg: #f0fdf4;
+    --badge-text: #166534;
+    --badge-border: #bbf7d0;
+    --code-bg: #f8fafc;
+    --btn-secondary-bg: #f7f7f7;
+    --btn-secondary-hover: #ebebeb;
+    --shadow-card: 0 6px 16px rgba(0, 0, 0, 0.08);
+  }
+
+  body.profile {
+    background-color: var(--page-bg);
+    color: var(--text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+
+  .profile-container {
+    max-width: 580px;
+    margin: 3rem auto;
+    padding: 0 1rem;
+  }
+
+  .profile-card {
+    background: var(--surface-bg);
+    border: 1px solid var(--border-medium);
+    border-radius: 20px;
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Soft coral-accented banner */
+  .profile-banner {
+    height: 110px;
+    background: linear-gradient(135deg, #ff385c 0%, #e00b41 100%);
+  }
+
+  /* Elevated Circular Avatar */
+  .profile-avatar-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: -55px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .profile-avatar {
+    width: 105px;
+    height: 105px;
+    background-color: #222222;
+    color: #ffffff;
+    border-radius: 50%;
+    border: 4px solid var(--surface-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.75rem;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Identity Section */
+  .profile-header {
+    text-align: center;
+    padding: 1rem 1.5rem 0.5rem;
+  }
+
+  .profile-username {
+    margin: 0 0 0.5rem;
+    font-size: 1.65rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+  }
+
+  .profile-badge {
+    display: inline-flex;
+    align-items: center;
+    background: var(--badge-bg);
+    color: var(--badge-text);
+    border: 1px solid var(--badge-border);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  /* User Info List */
+  .profile-details {
+    padding: 1.5rem 2rem;
+    border-top: 1px solid var(--border-subtle);
+    margin-top: 1rem;
+  }
+
+  .detail-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .detail-row:last-child {
+    border-bottom: none;
+  }
+
+  .detail-label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  .detail-value {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-primary);
+  }
+
+  /* Copyable ID Area */
+  .detail-value-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .detail-code {
+    background-color: var(--code-bg);
+    border: 1px solid var(--border-medium);
+    padding: 0.25rem 0.55rem;
+    border-radius: 6px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.8rem;
+    color: var(--text-primary);
+    max-width: 170px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .copy-btn {
+    background: transparent;
+    border: 1px solid var(--border-medium);
+    border-radius: 6px;
+    padding: 0.35rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: all 0.15s ease-in-out;
+  }
+
+  .copy-btn:hover {
+    background-color: var(--btn-secondary-hover);
+    color: var(--text-primary);
+    border-color: #b0b0b0;
+  }
+
+  .copy-btn:active {
+    transform: scale(0.95);
+  }
+
+  /* Actions */
+  .profile-actions {
+    display: flex;
+    gap: 1rem;
+    padding: 1.5rem 2rem 2rem;
+    background-color: #fafafa;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .profile-actions .btn {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.15s ease-in-out;
+  }
+
+  .profile-actions .btn-secondary {
+    background: var(--btn-secondary-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-medium);
+  }
+
+  .profile-actions .btn-secondary:hover {
+    background: var(--btn-secondary-hover);
+    border-color: #999999;
+  }
+
+  .profile-actions .btn-danger {
+    background: #ffffff;
+    color: #e11d48;
+    border: 1px solid #fecdd3;
+  }
+
+  .profile-actions .btn-danger:hover {
+    background: #fff1f2;
+    border-color: #fda4af;
+  }
+
+  .profile-actions .btn:active {
+    transform: scale(0.98);
+  }
+
+  @media (max-width: 480px) {
+    .profile-details,
+    .profile-actions {
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+    }
+
+    .detail-row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.35rem;
+    }
+
+    .detail-code {
+      max-width: 100%;
+    }
+  }
+</style>
+
+<body class="profile">
+  <div class="profile-container">
+  <div class="profile-card">
+    <!-- Header / Banner Accent -->
+    <div class="profile-banner"></div>
+
+    <!-- Avatar Section -->
+    <div class="profile-avatar-wrapper">
+      <div class="profile-avatar">
+        <%= currUser.username ? currUser.username.charAt(0).toUpperCase() : 'U' %>
+      </div>
+    </div>
+
+    <!-- Main Identity -->
+    <div class="profile-header">
+      <h2 class="profile-username"><%= currUser.username %></h2>
+      <span class="profile-badge">Active Member</span>
+    </div>
+
+    <!-- User Details List -->
+    <div class="profile-details">
+      <div class="detail-row">
+        <span class="detail-label">User ID</span>
+        <div class="detail-value-wrapper">
+          <code class="detail-code" id="userIdText"><%= currUser._id %></code>
+          <button class="copy-btn" onclick="copyId()" title="Copy ID">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M13 0H6a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2v-2h2a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 2v8h-2V6a2 2 0 0 0-2-2H4V2h9zM2 6h7v8H2V6z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="detail-row">
+        <span class="detail-label">Email Address</span>
+        <span class="detail-value"><%= currUser.email %></span>
+      </div>
+
+      <div class="detail-row">
+        <span class="detail-label">Username</span>
+        <span class="detail-value">@<%= currUser.username %></span>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="profile-actions">
+      <a href="/listings" class="btn btn-secondary">Back to Explore</a>
+      <a href="/logout" class="btn btn-danger">Log Out</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function copyId() {
+    const text = document.getElementById('userIdText').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      alert('User ID copied to clipboard!');
+    });
+  }
+</script>
+</body>
