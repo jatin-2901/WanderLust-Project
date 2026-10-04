@@ -1,1 +1,1 @@
-This is My Project.
+This is Mini My Project.
