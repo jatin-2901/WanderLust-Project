@@ -8,7 +8,7 @@ const { saveRedirectUrl, isLoggedIn } = require("../util/middleware.js");
 const userController = require("../controllers/users.js");
 
 router
-  .route("/signup")
+  .route("/signUp")
   .get(userController.signUpForm)
   .post(userController.signUpUser);
 
