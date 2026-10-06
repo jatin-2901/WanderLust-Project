@@ -81,10 +81,10 @@ main()
     console.log(err);
   });
 
-// //root route
-// app.get("/", (req, res) => {
-//   res.send("This is Root");
-// });
+//root route
+app.get("/", (req, res) => {
+  res.send("This is Root");
+});
 
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
